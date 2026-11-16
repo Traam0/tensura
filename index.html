@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" data-theme="nightfall">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101323">
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('tensura-theme');
+      if (savedTheme === 'daybreak' || savedTheme === 'grove') {
+        document.documentElement.dataset.theme = 'daybreak';
+        document.querySelector('meta[name="theme-color"]').content = '#f5f2fb';
+        if (savedTheme === 'grove') localStorage.setItem('tensura-theme', 'daybreak');
+      }
+    } catch {
+      // The page can still use the default theme if browser storage is unavailable.
+    }
+  </script>
+  <meta name="description" content="Plan race evolutions, track skill mastery, and look up items in Tensura: Reincarnated for Minecraft.">
+  <title>Tensura Field Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+  <link rel="stylesheet" href="src/evolution.css">
+  <link rel="stylesheet" href="src/skills.css">
+  <link rel="stylesheet" href="src/items.css">
+  <link rel="stylesheet" href="src/progress.css">
+  <link rel="stylesheet" href="src/abilities.css">
+  <link rel="stylesheet" href="src/themes.css">
+  <link rel="icon" type="image/png" sizes="96x96" href="public/guide-icon.png">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="shell">
+    <div class="guide-chrome" id="guide-chrome">
+      <header class="topbar" id="topbar"></header>
+      <aside class="sidebar" id="sidebar"></aside>
+    </div>
+    <main id="main" tabindex="-1"></main>
+    <footer class="footer" id="footer"></footer>
+  </div>
+  <dialog class="search-dialog" id="search-dialog" aria-label="Search the field guide"></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

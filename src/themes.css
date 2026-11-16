@@ -1,0 +1,141 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  height: 37px;
+  padding: 0 9px;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.theme-toggle .material-symbols-outlined { font-size: 17px; }
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+:root[data-theme="nightfall"] {
+  color-scheme: dark;
+  --background: #101323;
+  --sidebar: #14182b;
+  --panel: #1b2138;
+  --surface: #232b47;
+  --line: #36405e;
+  --text: #f3f1fc;
+  --muted: #b0b8d3;
+  --accent: #c9b9ff;
+  --accent-soft: #302952;
+  --theme-border: #5d557d;
+  --theme-accent-ink: #19122e;
+  --theme-accent-hover: #e2d8ff;
+  --theme-eyebrow: #ada9cf;
+  --loss: #ffa99e;
+}
+
+:root[data-theme="daybreak"] {
+  color-scheme: light;
+  --background: #f5f2fb;
+  --sidebar: #ede7f7;
+  --panel: #fefcff;
+  --surface: #eee8f8;
+  --line: #d2c8e3;
+  --text: #251c35;
+  --muted: #5c526e;
+  --accent: #58359a;
+  --accent-soft: #e9ddfa;
+  --theme-border: #a28bc6;
+  --theme-accent-ink: #fff;
+  --theme-accent-hover: #452579;
+  --theme-eyebrow: #655485;
+  --loss: #9d302f;
+}
+
+:root[data-theme] :is(.brand-mark, .nav-link.active, .toast) {
+  background: var(--accent-soft);
+  border-color: var(--theme-border);
+}
+
+:root[data-theme] :is(.nav-caption, .eyebrow, .catalog-count) { color: var(--theme-eyebrow); }
+:root[data-theme] .nav-link:not(.active, :hover) { color: var(--muted); }
+:root[data-theme] :is(.topbar, .version, .utility-card) { background: var(--sidebar); }
+:root[data-theme="nightfall"] .version i { box-shadow: 0 0 9px #c9b9ff7d; }
+:root[data-theme] .ep-chip { background: var(--surface); }
+:root[data-theme] .hero { background: var(--panel); border-color: var(--theme-border); }
+:root[data-theme="nightfall"] .hero::before { filter: hue-rotate(128deg) saturate(.7) brightness(.72); }
+:root[data-theme="nightfall"] .hero::after {
+  background: linear-gradient(90deg, #0e1326 1%, #151930ee 29%, #171f40ab 55%, #1e24532b 89%),
+    linear-gradient(0deg, #11172bdd, transparent 55%);
+}
+
+:root[data-theme="nightfall"] .hero-tag { background: #302952db; border-color: #c9b9ff62; }
+:root[data-theme="nightfall"] .hero p { color: #e4e1f2; }
+:root[data-theme="nightfall"] .hero .secondary { background: #191e35ca; border-color: var(--theme-border); }
+:root[data-theme="nightfall"] .hero-credit { background: #0e1228c4; color: var(--text); }
+
+:root[data-theme="daybreak"] .hero::before { filter: hue-rotate(128deg) saturate(.48) brightness(1.08); }
+:root[data-theme="daybreak"] .hero::after {
+  background: linear-gradient(90deg, #f6f0ff 4%, #f3eafff5 29%, #ece1f9e3 50%, #e3d5f640 88%),
+    linear-gradient(0deg, #e7d9f7a6, transparent 50%);
+}
+
+:root[data-theme="daybreak"] .hero-tag { background: var(--accent-soft); border-color: var(--theme-border); }
+:root[data-theme="daybreak"] .hero p { color: #40334f; }
+:root[data-theme="daybreak"] .hero .secondary { background: #fefcffee; border-color: var(--theme-border); }
+:root[data-theme="daybreak"] .hero-credit { background: #fcf8fef2; color: var(--text); }
+
+:root[data-theme] :is(.button.primary, .evolution-choice[aria-pressed="true"], .evolution-track:not([data-tracked="true"])) {
+  color: var(--theme-accent-ink);
+}
+
+:root[data-theme] .button.primary:hover { background: var(--theme-accent-hover); }
+:root[data-theme] :is(.button.secondary:hover, .feature-card:hover, .utility-card:focus-within) { border-color: var(--accent); }
+:root[data-theme] .feature-icon.green { background: var(--accent-soft); border-color: var(--theme-border); }
+:root[data-theme="nightfall"] .feature-icon.purple { color: #f0bbd9; background: #3a2843; border-color: #664764; }
+:root[data-theme="nightfall"] .feature-icon.amber { color: #91dce9; background: #203649; border-color: #365972; }
+:root[data-theme="daybreak"] .feature-icon.purple { color: #813660; background: #f4e0ed; border-color: #cb9bb9; }
+:root[data-theme="daybreak"] .feature-icon.amber { color: #1c6073; background: #dcedf2; border-color: #8fbac9; }
+
+:root[data-theme="nightfall"] .search-dialog { border-color: var(--theme-border); box-shadow: 0 20px 75px #060a17b3; }
+:root[data-theme="nightfall"] .search-dialog::backdrop { background: #080c1cba; }
+:root[data-theme="daybreak"] .search-dialog { border-color: var(--theme-border); box-shadow: 0 20px 75px #21113455; }
+:root[data-theme="daybreak"] .search-dialog::backdrop { background: #25193969; }
+:root[data-theme="daybreak"] .toast { box-shadow: 0 10px 27px #2716372e; }
+
+:root[data-theme="nightfall"] .evolution-page { --evo-connector: #747fa8; }
+:root[data-theme="daybreak"] .evolution-page { --evo-connector: #8670a3; }
+
+:root[data-theme="daybreak"] .skill-mark {
+  background: #302542;
+  border-color: #746187;
+}
+
+:root[data-theme="nightfall"] .item-codex { --codex-accent: #91dce9; }
+:root[data-theme="daybreak"] .item-codex { --codex-accent: #1c6073; }
+:root[data-theme] .item-codex :is(.codex-saved-filter[aria-pressed="true"], .codex-save.is-saved, .codex-list a[aria-current], .codex-pattern .filled) {
+  background: color-mix(in srgb, var(--codex-accent) 10%, transparent);
+  border-color: color-mix(in srgb, var(--codex-accent) 35%, var(--line));
+}
+
+:root[data-theme="daybreak"] .item-codex :is(input, select) { color-scheme: light; }
+:root[data-theme="daybreak"] .item-codex .codex-list a:hover:not([aria-current]) { background: var(--surface); }
+:root[data-theme="daybreak"] .item-codex .codex-emblem { color: #765614; }
+:root[data-theme="daybreak"] .item-codex .codex-emblem[data-category="Materials"] { color: #1b6664; }
+:root[data-theme="daybreak"] .item-codex .codex-emblem[data-category="Consumables"] { color: #1f664d; }
+:root[data-theme="daybreak"] .item-codex .codex-emblem[data-category="Gear"] { color: #824b24; }
+:root[data-theme="daybreak"] .item-codex .codex-emblem[data-category="Mob Drops"] { color: #913f55; }
+:root[data-theme="daybreak"] .item-codex .codex-emblem[data-category="Progression"] { color: var(--accent); }
+
+@media (max-width: 550px) {
+  .theme-toggle { width: 32px; height: 32px; padding: 0; }
+  .theme-toggle-label { display: none; }
+  :root[data-theme="nightfall"] .hero::after {
+    background: linear-gradient(90deg, #11172ae8 6%, #171d39a6 87%),
+      linear-gradient(0deg, #11162a, transparent 55%);
+  }
+  :root[data-theme="daybreak"] .hero::after {
+    background: linear-gradient(90deg, #f5edfff5 6%, #eee2f8df 85%),
+      linear-gradient(0deg, #efe2fa, transparent 55%);
+  }
+}
