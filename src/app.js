@@ -39,6 +39,8 @@ const main = document.querySelector('main');
 const sidebar = document.querySelector('#sidebar');
 const topbar = document.querySelector('#topbar');
 const chrome = document.querySelector('#guide-chrome');
+const mobileNav = document.querySelector('#mobile-nav');
+const mobileLayout = matchMedia('(max-width: 810px)');
 const dialog = document.querySelector('#search-dialog');
 const toast = document.querySelector('#toast');
 const storageKey = 'tensura-field-guide:profile:v1';
@@ -120,8 +122,10 @@ function renderShell(page) {
       <div class="sidebar-sources">${external('Wiki', wiki)} ${external('CurseForge', curseforge)}</div>
     </div>`;
   topbar.innerHTML = `
-    <div class="breadcrumbs">${icon('book_2')} <span>Field Guide</span> ${icon('chevron_right')} <strong>${pages[page][0]}</strong>
+    <div class="breadcrumbs">
+      <button class="menu-button menu-toggle" type="button" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">${icon('menu')}</button>
       <a class="mobile-brand" href="#overview" aria-label="Tensura Field Guide home"><img src="public/guide-icon.png" alt="" width="32" height="32"></a>
+      ${icon('book_2')} <span class="breadcrumb-label">Field Guide</span> ${icon('chevron_right')} <strong>${pages[page][0]}</strong>
     </div>
     <div class="top-controls">
       <button class="search-trigger" type="button" aria-label="Search the guide">${icon('search')}<span>Search the guide</span><kbd>/</kbd></button>
@@ -129,6 +133,11 @@ function renderShell(page) {
       ${renderThemeToggle()}
     </div>`;
   topbar.querySelector('.search-trigger').addEventListener('click', openSearch);
+  const menuToggle = topbar.querySelector('.menu-toggle');
+  menuToggle.addEventListener('click', () => {
+    mobileNav.showModal();
+    menuToggle.setAttribute('aria-expanded', 'true');
+  });
   bindThemeToggle(topbar);
   document.querySelector('#footer').innerHTML = `<span>Unofficial companion for Tensura: Reincarnated</span><span>${external('Mod by ManasMods', curseforge)} ${external('Game data sources', wiki)}</span>`;
 }
@@ -521,6 +530,7 @@ function render({ focus = false } = {}) {
 }
 
 document.addEventListener('keydown', (event) => {
+  if (mobileNav.open) return;
   const editing = event.target instanceof HTMLElement && (event.target.matches('input, textarea, select') || event.target.isContentEditable);
   if ((event.key === '/' && !editing) || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k')) {
     event.preventDefault();
@@ -531,8 +541,28 @@ document.querySelector('.skip-link').addEventListener('click', event => {
   event.preventDefault();
   main.focus();
 });
-window.addEventListener('hashchange', () => render({ focus: true }));
+function placeNavigation() {
+  if (mobileLayout.matches) mobileNav.append(sidebar);
+  else {
+    mobileNav.close();
+    chrome.append(sidebar);
+  }
+}
+
+mobileLayout.addEventListener('change', placeNavigation);
+mobileNav.addEventListener('close', () => {
+  topbar.querySelector('.menu-toggle')?.setAttribute('aria-expanded', String(mobileNav.open));
+});
+mobileNav.addEventListener('click', event => {
+  if (event.target === mobileNav || event.target.closest('a[href^="#"]')) mobileNav.close();
+});
+document.querySelector('#menu-close').addEventListener('click', () => mobileNav.close());
+window.addEventListener('hashchange', () => {
+  mobileNav.close();
+  render({ focus: true });
+});
 new ResizeObserver(() => {
   document.documentElement.style.setProperty('--chrome-height', chrome.offsetHeight + 'px');
 }).observe(chrome);
+placeNavigation();
 render();
